@@ -3,8 +3,8 @@
 cd openwrt
 
 # 安装额外依赖软件包
-# sudo -E apt-get -y install rename
-#ln -s ../../diy ./package/openwrt-packages
+sudo -E apt-get -y install rename
+ln -s ../../diy ./package/openwrt-packages
 
 # 更新feeds文件
 #sed -i 's@#src-git helloworld@src-git helloworld@g' feeds.conf.default #启用helloworld
@@ -24,34 +24,34 @@ cat feeds.conf.default
 
 # 添加第三方软件包
 #git clone https://github.com/gbaoye/openwrt-packages package/openwrt-packages
-#git clone https://github.com/kenzok8/openwrt-packages package/openwrt-packages
+git clone https://github.com/kenzok8/openwrt-packages package/openwrt-packages
 #git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 #git clone https://github.com/tty228/luci-app-serverchan package/luci-app-serverchan
-#git clone https://github.com/garypang13/luci-theme-edge package/luci-theme-edge
-git clone https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
+git clone https://github.com/garypang13/luci-theme-edge package/luci-theme-edge
+#git clone https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
 #git clone https://github.com/frainzy1477/luci-app-clash package/luci-app-clash
 #git clone https://github.com/hubbylei/luci-app-clash package/luci-app-clash
 #git clone https://github.com/immortalwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-#git clone https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-openclash package/luci-app-openclash
+git clone https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-openclash package/luci-app-openclash
 
 # 下载自定义软件
 #svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-clash ../package/luci-app-clash
-#svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-openclash ../package/luci-app-openclash
+svn co https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-openclash ../package/luci-app-openclash
 
 # 替换更新插件
-#rm -rf package/openwrt-packages/luci-app-passwall && svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-passwall package/openwrt-packages/luci-app-passwall
+rm -rf package/openwrt-packages/luci-app-passwall && svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-passwall package/openwrt-packages/luci-app-passwall
 #rm -rf package/openwrt-packages/luci-app-ssr-plus && svn co https://github.com/fw876/helloworld package/openwrt-packages/helloworld
 #rm -rf package/openwrt-packages/adguardhome && svn co https://github.com/Lienol/openwrt/tree/dev-19.07/package/diy/adguardhome package/openwrt-packages/adguardhome
 #rm -rf package/openwrt-packages/luci-app-adguardhome && svn co https://github.com/kongfl888/luci-app-adguardhome package/openwrt-packages/luci-app-adguardhome
 #rm -rf package/openwrt-packages/luci-app-clash && svn co https://github.com/frainzy1477/luci-app-clash package/openwrt-packages/luci-app-clash
 
 # 添加passwall依赖库
-#git clone https://github.com/kenzok8/small package/small
-#svn co https://github.com/Lienol/openwrt-package/tree/master/package package/small
+git clone https://github.com/kenzok8/small package/small
+svn co https://github.com/Lienol/openwrt-package/tree/master/package package/small
 # 替换更新haproxy默认版本
 #rm -rf feeds/packages/net/haproxy && svn co https://github.com/Lienol/openwrt-packages/net/haproxy feeds/packages/net/haproxy
 # 自定义定制选项
-sed -i 's#192.168.1.1#10.1.0.1#g' package/base-files/files/bin/config_generate #定制默认IP
+sed -i 's#192.168.1.1#192.168.2.1#g' package/base-files/files/bin/config_generate #定制默认IP
 #sed -i 's#max-width:200px#max-width:1000px#g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm #修改首页样式
 #sed -i 's#option commit_interval 24h#option commit_interval 10m#g' feeds/packages/net/nlbwmon/files/nlbwmon.config #修改流量统计写入为10分钟
 #sed -i 's#option database_directory /var/lib/nlbwmon#option database_directory /etc/config/nlbwmon_data#g' feeds/packages/net/nlbwmon/files/nlbwmon.config #修改流量统计数据存放默认位置
@@ -78,7 +78,7 @@ EOF
 cat >> .config <<EOF
 CONFIG_TARGET_ramips=y
 CONFIG_TARGET_ramips_mt7621=y
-CONFIG_TARGET_ramips_mt7621_DEVICE_d-team_newifi-d2=y
+CONFIG_TARGET_ramips_mt7621_DEVICE_xiaomi_redmi-router-ac2100=y
 EOF
 
 # 无线驱动(开源)
@@ -119,10 +119,10 @@ EOF
 cat >> .config <<EOF
 #CONFIG_PACKAGE_luci-app-oaf=y #应用过滤
 #CONFIG_PACKAGE_luci-app-clash=y
-#CONFIG_PACKAGE_luci-app-openclash=y #OpenClash
+CONFIG_PACKAGE_luci-app-openclash=y #OpenClash
 #CONFIG_PACKAGE_luci-app-serverchan=y #微信推送
 #CONFIG_PACKAGE_luci-app-eqos=y #IP限速
-CONFIG_PACKAGE_luci-app-adguardhome=y #ADguardhome
+#CONFIG_PACKAGE_luci-app-adguardhome=y #ADguardhome
 #CONFIG_PACKAGE_AdGuardHome=y
 EOF
 
@@ -137,16 +137,16 @@ EOF
 #EOF
 
 # Passwall插件:
-#cat >> .config <<EOF
-#CONFIG_PACKAGE_luci-app-passwall=y
-#CONFIG_PACKAGE_https-dns-proxy=y
-#CONFIG_PACKAGE_naiveproxy=y
-#CONFIG_PACKAGE_kcptun-client=y
-#CONFIG_PACKAGE_chinadns-ng=y
-#CONFIG_PACKAGE_brook=y
-#CONFIG_PACKAGE_trojan-go=y
-#CONFIG_PACKAGE_shadowsocks-rust-sslocal=y
-#EOF
+cat >> .config <<EOF
+CONFIG_PACKAGE_luci-app-passwall=y
+CONFIG_PACKAGE_https-dns-proxy=y
+CONFIG_PACKAGE_naiveproxy=y
+CONFIG_PACKAGE_kcptun-client=y
+CONFIG_PACKAGE_chinadns-ng=y
+CONFIG_PACKAGE_brook=y
+CONFIG_PACKAGE_trojan-go=y
+CONFIG_PACKAGE_shadowsocks-rust-sslocal=y
+EOF
 
 # 常用LuCI插件:
 cat >> .config <<EOF
@@ -154,16 +154,16 @@ cat >> .config <<EOF
 #CONFIG_PACKAGE_luci-app-guest-wifi=y
 CONFIG_PACKAGE_luci-app-ttyd=y
 #CONFIG_PACKAGE_luci-app-easymesh=y
-#CONFIG_PACKAGE_luci-app-smartdns=y
+CONFIG_PACKAGE_luci-app-smartdns=y
 #CONFIG_PACKAGE_luci-app-webadmin=n #Web管理页面设置
-#CONFIG_PACKAGE_luci-app-ddns=y #DDNS服务
-CONFIG_PACKAGE_luci-app-vlmcsd=n #KMS激活服务器
+CONFIG_PACKAGE_luci-app-ddns=y #DDNS服务
+#CONFIG_PACKAGE_luci-app-vlmcsd=n #KMS激活服务器
 #CONFIG_PACKAGE_luci-app-filetransfer=y #系统-文件传输
 CONFIG_PACKAGE_luci-app-autoreboot=y #定时重启
 #CONFIG_PACKAGE_luci-app-upnp=y #通用即插即用UPnP(端口自动转发)
 #CONFIG_PACKAGE_luci-app-accesscontrol=y #上网时间控制
 CONFIG_PACKAGE_luci-app-wol=y #网络唤醒
-CONFIG_PACKAGE_luci-app-frpc=y #Frp内网穿透
+#CONFIG_PACKAGE_luci-app-frpc=y #Frp内网穿透
 #CONFIG_PACKAGE_luci-app-nlbwmon=n #宽带流量监控
 #CONFIG_PACKAGE_luci-app-wrtbwmon=y
 CONFIG_PACKAGE_automount=y
