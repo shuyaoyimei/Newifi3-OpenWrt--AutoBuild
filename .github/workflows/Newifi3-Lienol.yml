@@ -14,14 +14,14 @@ on:
   watch:
     types: [started]
 
-# 编辑触发
-#  push:
-#    branches: 
-#      - main
+ 编辑触发
+  push:
+    branches: 
+      - main
 
-# config触发
-#  paths:
-#    - '.config'
+ config触发
+  paths:
+    - '.config'
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
