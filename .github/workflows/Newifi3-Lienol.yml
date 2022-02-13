@@ -3,6 +3,7 @@ name: rm2100-Lienol
 
 on:
 # 定时触发
+  workflow_dispatch:
   schedule:
     - cron: 0 19 * * 5
 
