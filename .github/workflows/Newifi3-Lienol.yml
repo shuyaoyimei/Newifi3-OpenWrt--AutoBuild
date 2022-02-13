@@ -6,22 +6,6 @@ on:
   schedule:
     - cron: 0 19 * * 5
 
-# release触发
-  release:
-    types: [published]
-
-# 点赞触发
-  watch:
-    types: [started]
-
-# 编辑触发
-  push:
-    branches: 
-      - main
-
-# config触发
-  paths:
-    - '.config'
 
 env:
   REPO_URL: https://github.com/Lienol/openwrt
