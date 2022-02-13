@@ -14,12 +14,12 @@ on:
   watch:
     types: [started]
 
- 编辑触发
+# 编辑触发
   push:
     branches: 
       - main
 
- config触发
+# config触发
   paths:
     - '.config'
 
